@@ -1,0 +1,45 @@
+// service.proto
+syntax = "proto3";
+
+package example;
+
+// Definisi Service
+service MyService {
+  // 1. Unary RPC: Client kirim 1 request, Server kirim 1 response
+  rpc SayHello (HelloRequest) returns (HelloResponse);
+
+  // 2. Server Streaming RPC: Client kirim 1 request, Server kirim stream response
+  rpc StreamGreetings (HelloRequest) returns (stream Greeting);
+
+  // 3. Client Streaming RPC: Client kirim stream request, Server kirim 1 response
+  rpc AddNumbers (stream NumberRequest) returns (SumResponse);
+
+  // 4. Bidirectional Streaming RPC: Client & Server kirim stream request/response
+  rpc Chat (stream ChatMessage) returns (stream ChatMessage);
+}
+
+// Definisi Message
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string message = 1;
+}
+
+message Greeting {
+    string message = 1;
+}
+
+message NumberRequest {
+  int32 number = 1;
+}
+
+message SumResponse {
+  int32 sum = 1;
+}
+
+message ChatMessage {
+  string sender = 1;
+  string message = 2;
+}
